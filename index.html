@@ -141,8 +141,20 @@
   .product-thumb{
     height:120px;display:flex;align-items:center;justify-content:center;
     background:linear-gradient(135deg, var(--crema-2), #f0deb8);
+    position:relative;overflow:hidden;
   }
   .product-thumb svg{width:52px;height:52px;color:var(--terracota);}
+  .product-thumb img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .thumb-fallback{
+    position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+    background:linear-gradient(135deg, var(--crema-2), #f0deb8);
+  }
+  .ref-tag{
+    position:absolute;bottom:4px;right:6px;font-size:.6rem;
+    background:rgba(59,36,21,.65);color:#fff;padding:1px 6px;border-radius:8px;
+  }
   .product-body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;flex:1;}
   .product-body h3{margin:0;font-size:1.02rem;color:var(--cafe-900);}
   .product-body .desc{font-size:.82rem;color:#8a7867;min-height:32px;}
@@ -286,7 +298,7 @@
 <body>
 
 <div class="placeholder-banner">
-  Versión de trabajo v1.0.0 — catálogo, colores/logo y datos de contacto son de ejemplo, pendientes de la información real de Panadería Monarca Real.
+  Versión de trabajo v1.1.0 — catálogo, colores/logo y datos de contacto son de ejemplo. Las fotos son imágenes de referencia de Wikimedia Commons (algunas genéricas, no del producto exacto); pendiente sustituirlas por fotos reales de Monarca Real.
 </div>
 
 <header class="site">
@@ -339,7 +351,7 @@
     <div class="cat-tabs" id="catTabs"></div>
     <div id="catGroups"></div>
 
-    <p class="sample-note">* Productos y precios de ejemplo. Se reemplazan por el catálogo real de Monarca Real cuando lo compartas.</p>
+    <p class="sample-note">* Productos y precios de ejemplo. Las fotos marcadas "foto de referencia" son una imagen aproximada (no el producto exacto); los productos sin foto muestran un ícono. Todo se reemplaza por el catálogo real y fotos propias de Monarca Real cuando los compartas.</p>
   </div>
 </section>
 
@@ -390,7 +402,13 @@
       <div class="contact-card">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z"/></svg>
         <h3>WhatsApp</h3>
-        <p>711 136 6000</p>
+        <p>771 760 3091</p>
+        <a href="#" class="placeholder-tag" style="background:#e6f9ee;color:#1c7a44;text-decoration:none;" onclick="return false;">Confirmado</a>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 21h18v-2H3v2zM5 19h2v-7H5v7zm4 0h2v-7H9v7zm4 0h2v-7h-2v7zm4 0h2v-7h-2v7zM12 3L2 8v2h20V8L12 3z"/></svg>
+        <h3>Pago por transferencia</h3>
+        <p>Banco Azteca<br>Titular: Tania Tapia Pérez<br>Cuenta: 4027665853973569</p>
         <a href="#" class="placeholder-tag" style="background:#e6f9ee;color:#1c7a44;text-decoration:none;" onclick="return false;">Confirmado</a>
       </div>
     </div>
@@ -415,14 +433,15 @@
     <div>
       <h4>Contacto</h4>
       <ul>
-        <li>WhatsApp: 711 136 6000</li>
+        <li>WhatsApp: 771 760 3091</li>
+        <li>Transferencia: Banco Azteca</li>
         <li>[Correo de contacto]</li>
         <li>[Redes sociales]</li>
       </ul>
     </div>
   </div>
   <div class="container footer-bottom">
-    © <span id="year"></span> Panadería Monarca Real. Todos los derechos reservados. · Panadería_distribución_v1.0.0
+    © <span id="year"></span> Panadería Monarca Real. Todos los derechos reservados. · Panadería_distribución_v1.2.0
   </div>
 </footer>
 
@@ -448,7 +467,7 @@
       <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.5.73 4.83 2 6.78L4 29l7.4-1.94a11.9 11.9 0 004.62.94h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 21.85a9.8 9.8 0 01-4.99-1.37l-.36-.21-4.39 1.15 1.17-4.28-.23-.44a9.83 9.83 0 01-1.5-5.68c0-5.43 4.42-9.85 9.85-9.85s9.85 4.42 9.85 9.85-4.41 9.83-9.85 9.83z"/></svg>
       Enviar pedido por WhatsApp
     </button>
-    <p class="cart-note">Se abrirá WhatsApp con el resumen de tu pedido para confirmarlo con la panadería.</p>
+    <p class="cart-note">Se abrirá WhatsApp con el resumen de tu pedido para confirmarlo con la panadería. Aceptamos pago en efectivo o por transferencia (Banco Azteca).</p>
   </div>
 </aside>
 
@@ -456,22 +475,32 @@
   document.getElementById('year').textContent = new Date().getFullYear();
 
   // Número de WhatsApp del negocio (formato internacional, sin espacios ni signos)
-  var WA_NUMBER = "527111366000";
+  var WA_NUMBER = "527717603091";
 
   // ---- Catálogo de ejemplo ----
   // Categorías y productos placeholder: se reemplazan por el catálogo real.
+  // "img": nombre de archivo en Wikimedia Commons (foto de referencia, no siempre el producto exacto).
+  //        null = no se encontró una foto de referencia confiable; se muestra el ícono.
+  //        "ref": true = la foto es una referencia genérica/aproximada, no el producto exacto (se marca en la tarjeta).
   var catalog = [
     {
       id: "pan-dulce",
       label: "Pan Dulce",
       icon: "M12 2c-1 2-3 3-3 6a3 3 0 006 0c0-3-2-4-3-6z",
       items: [
-        { id:"pd1", name:"Concha", desc:"Clásica, vainilla o chocolate", price:14 },
-        { id:"pd2", name:"Cuernito", desc:"Hojaldrado, mantequilla", price:13 },
-        { id:"pd3", name:"Oreja", desc:"Hojaldre acaramelado", price:15 },
-        { id:"pd4", name:"Dona glaseada", desc:"Glaseado clásico", price:16 },
-        { id:"pd5", name:"Cocol", desc:"Pan dulce con ajonjolí", price:13 },
-        { id:"pd6", name:"Empanada de manzana", desc:"Relleno de manzana", price:18 }
+        { id:"pd1", name:"Concha", desc:"Clásica, vainilla o chocolate", price:13, img:"Concha_(pan_dulce_mexicano)_02.JPG" },
+        { id:"pd2", name:"Cuernito", desc:"Hojaldrado, mantequilla", price:13, img:"Cuerno_(pan_dulce_mexicano)_-_5.jpg" },
+        { id:"pd3", name:"Oreja", desc:"Hojaldre acaramelado", price:13, img:null },
+        { id:"pd7", name:"Ojo", desc:"Pan dulce tradicional", price:13, img:null },
+        { id:"pd8", name:"Dona de moca", desc:"Glaseado sabor moca", price:13, img:"Dunkin-Donuts-Chocolate-Glazed.jpg", ref:true },
+        { id:"pd9", name:"Rol de canela", desc:"Enrollado, relleno de canela", price:13, img:"Cinnamon_roll.jpg", ref:true },
+        { id:"pd10", name:"Bigote", desc:"Pan dulce tradicional", price:13, img:null },
+        { id:"pd11", name:"Rollo de canela", desc:"Enrollado, relleno de canela", price:13, img:"Cinnamon_rolls_fully_baked.jpg", ref:true },
+        { id:"pd12", name:"Broca", desc:"Pan dulce tradicional", price:13, img:null },
+        { id:"pd4", name:"Dona glaseada", desc:"Glaseado clásico", price:13, img:"Glazed-Donut.jpg" },
+        { id:"pd5", name:"Cocol", desc:"Pan dulce con ajonjolí", price:13, img:null },
+        { id:"pd6", name:"Empanada de manzana", desc:"Relleno de manzana", price:13, img:"Appleturnover.jpg" },
+        { id:"pd13", name:"Pay de queso", desc:"Pieza individual", price:13, img:"Cheesecake.jpg", ref:true }
       ]
     },
     {
@@ -479,10 +508,10 @@
       label: "Pan Salado",
       icon: "M4 12h16M4 12a8 8 0 0116 0M4 12a8 8 0 0016 0",
       items: [
-        { id:"ps1", name:"Bolillo", desc:"Pieza individual", price:6 },
-        { id:"ps2", name:"Telera", desc:"Pieza individual", price:6 },
-        { id:"ps3", name:"Baguette", desc:"Pieza 40cm aprox.", price:28 },
-        { id:"ps4", name:"Pan de ajo", desc:"Con mantequilla de ajo", price:20 }
+        { id:"ps1", name:"Bolillo", desc:"Pieza individual", price:6, img:"Bread_mexican_pan_mexicano_bolillo_(2).jpg" },
+        { id:"ps2", name:"Telera", desc:"Pieza individual", price:6, img:"Telera_01.JPG" },
+        { id:"ps3", name:"Baguette", desc:"Pieza 40cm aprox.", price:28, img:"Baguette.jpg" },
+        { id:"ps4", name:"Pan de ajo", desc:"Con mantequilla de ajo", price:20, img:"Garlic_bread.jpg", ref:true }
       ]
     },
     {
@@ -490,9 +519,9 @@
       label: "Pan de Caja",
       icon: "M4 6h16v12H4z",
       items: [
-        { id:"pc1", name:"Pan de caja blanco", desc:"Barra 680g", price:42 },
-        { id:"pc2", name:"Pan de caja integral", desc:"Barra 680g", price:46 },
-        { id:"pc3", name:"Pan de caja multigrano", desc:"Barra 680g", price:48 }
+        { id:"pc1", name:"Pan de caja blanco", desc:"Barra 680g", price:42, img:"Slice_of_Bread.jpg", ref:true },
+        { id:"pc2", name:"Pan de caja integral", desc:"Barra 680g", price:46, img:"Vegan_no-knead_whole_wheat_bread_loaf,_September_2010.jpg", ref:true },
+        { id:"pc3", name:"Pan de caja multigrano", desc:"Barra 680g", price:48, img:"Multigrain_bread.JPG", ref:true }
       ]
     },
     {
@@ -500,10 +529,10 @@
       label: "Pastelería",
       icon: "M4 20h16v-6H4zM6 14V9a6 6 0 0112 0v5",
       items: [
-        { id:"pt1", name:"Pastel de chocolate (rebanada)", desc:"Ganache de chocolate", price:38 },
-        { id:"pt2", name:"Pastel de vainilla (rebanada)", desc:"Relleno de crema", price:35 },
-        { id:"pt3", name:"Cheesecake (rebanada)", desc:"Con frutos rojos", price:42 },
-        { id:"pt4", name:"Pay de queso (rebanada)", desc:"Base de galleta", price:40 }
+        { id:"pt1", name:"Pastel de chocolate (rebanada)", desc:"Ganache de chocolate", price:38, img:"Chocolate_cake.jpg", ref:true },
+        { id:"pt2", name:"Pastel de vainilla (rebanada)", desc:"Relleno de crema", price:35, img:"Cake_slice_-_original.JPG", ref:true },
+        { id:"pt3", name:"Cheesecake (rebanada)", desc:"Con frutos rojos", price:42, img:"Cheesecake.jpg", ref:true },
+        { id:"pt4", name:"Pay de queso (rebanada)", desc:"Base de galleta", price:40, img:"Plain_New_York-style_cheesecake.JPG", ref:true }
       ]
     },
     {
@@ -511,9 +540,9 @@
       label: "Galletas",
       icon: "M12 4a2 2 0 110 4 2 2 0 010-4zm-6 8a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm12 2a1 1 0 110 2 1 1 0 010-2z",
       items: [
-        { id:"gl1", name:"Galletas de mantequilla (6 pz)", desc:"Receta clásica", price:35 },
-        { id:"gl2", name:"Galletas de avena (6 pz)", desc:"Con pasas", price:35 },
-        { id:"gl3", name:"Galletas de chispas de chocolate (6 pz)", desc:"Chispas semiamargas", price:38 }
+        { id:"gl1", name:"Galletas de mantequilla (6 pz)", desc:"Receta clásica", price:35, img:"Danish-butter-cookies_(ring-shaped).jpg", ref:true },
+        { id:"gl2", name:"Galletas de avena (6 pz)", desc:"Con pasas", price:35, img:"Dad's_Original_Scotch_Oatmeal_Cookies_(15450276577).jpg", ref:true },
+        { id:"gl3", name:"Galletas de chispas de chocolate (6 pz)", desc:"Chispas semiamargas", price:38, img:"Chocolate_chip_cookies.jpg" }
       ]
     }
   ];
@@ -549,8 +578,25 @@
         qtyDraft[item.id] = 1;
         var card = document.createElement('div');
         card.className = "product-card";
+
+        var fallbackIcon = '<div class="thumb-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="' + cat.icon + '"/></svg></div>';
+        var thumbHtml;
+        if (item.img){
+          var src = "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(item.img) + "?width=400";
+          thumbHtml =
+            '<div class="product-thumb">' +
+              '<img src="' + src + '" alt="' + item.name + '" loading="lazy" ' +
+                'onerror="var p=this.parentElement; this.remove(); if(p){var fb=p.querySelector(\'.thumb-fallback\'); if(fb) fb.style.display=\'flex\';}">' +
+              fallbackIcon +
+              (item.ref ? '<span class="ref-tag">foto de referencia</span>' : '') +
+            '</div>';
+        } else {
+          // sin foto de referencia disponible: se muestra el ícono directamente
+          thumbHtml = '<div class="product-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="' + cat.icon + '"/></svg></div>';
+        }
+
         card.innerHTML =
-          '<div class="product-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="' + cat.icon + '"/></svg></div>' +
+          thumbHtml +
           '<div class="product-body">' +
             '<h3>' + item.name + '</h3>' +
             '<div class="desc">' + item.desc + '</div>' +
