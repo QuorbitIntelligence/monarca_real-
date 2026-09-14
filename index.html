@@ -75,13 +75,6 @@
     font-size:.72rem;padding:0 4px;
   }
 
-  /* ===== Placeholder banner ===== */
-  .placeholder-banner{
-    background:#fff4d6;border-bottom:1px solid #e9d8a6;
-    color:#6b4f16;font-size:.82rem;text-align:center;
-    padding:8px 16px;
-  }
-
   /* ===== Hero ===== */
   .hero{
     background:linear-gradient(135deg, var(--cafe-800), var(--cafe-900));
@@ -135,51 +128,56 @@
   .cat-tab.active{background:var(--cafe-900);color:var(--dorado-2);}
   .cat-group{display:none;}
   .cat-group.visible{display:block;}
-  .product-grid{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-    gap:22px;
+
+  /* Compact catalog: dense rows instead of big cards */
+  .product-list{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:8px;
   }
-  .product-card{
-    background:#fff;border-radius:var(--radio);
-    box-shadow:var(--sombra);overflow:hidden;
-    display:flex;flex-direction:column;
+  .product-row{
+    background:#fff;border-radius:10px;box-shadow:0 2px 6px rgba(59,36,21,.10);
+    display:flex;align-items:center;gap:10px;padding:8px 10px;
   }
-  .product-thumb{
-    height:120px;display:flex;align-items:center;justify-content:center;
+  .p-thumb{
+    width:42px;height:42px;border-radius:8px;flex-shrink:0;position:relative;overflow:hidden;
     background:linear-gradient(135deg, var(--crema-2), #f0deb8);
-    position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
   }
-  .product-thumb svg{width:52px;height:52px;color:var(--terracota);}
-  .product-thumb img{
-    width:100%;height:100%;object-fit:cover;display:block;
-  }
-  .thumb-fallback{
+  .p-thumb svg{width:19px;height:19px;color:var(--terracota);}
+  .p-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .p-thumb .thumb-fallback{
     position:absolute;inset:0;display:none;align-items:center;justify-content:center;
     background:linear-gradient(135deg, var(--crema-2), #f0deb8);
   }
-  .ref-tag{
-    position:absolute;bottom:4px;right:6px;font-size:.6rem;
-    background:rgba(59,36,21,.65);color:#fff;padding:1px 6px;border-radius:8px;
+  .p-thumb .ref-dot{
+    position:absolute;bottom:1px;right:1px;width:7px;height:7px;border-radius:50%;
+    background:var(--dorado);border:1px solid #fff;
   }
-  .product-body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;flex:1;}
-  .product-body h3{margin:0;font-size:1.02rem;color:var(--cafe-900);}
-  .product-body .desc{font-size:.82rem;color:#8a7867;min-height:32px;}
-  .product-price{font-weight:700;color:var(--terracota);font-size:1.05rem;}
-  .qty-row{
-    display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:10px;
+  .p-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+  .p-line1{display:flex;align-items:baseline;justify-content:space-between;gap:8px;}
+  .p-line1 h3{
+    margin:0;font-size:.86rem;font-weight:700;color:var(--cafe-900);line-height:1.2;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;
   }
-  .stepper{display:flex;align-items:center;border:1.5px solid var(--crema-2);border-radius:30px;overflow:hidden;}
-  .stepper button{
-    background:var(--crema-2);border:none;width:30px;height:30px;
-    font-size:1rem;cursor:pointer;color:var(--cafe-900);
+  .p-price{font-weight:700;color:var(--terracota);font-size:.8rem;white-space:nowrap;flex-shrink:0;}
+  .p-line2{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .p-desc{
+    font-size:.68rem;color:#9a8879;line-height:1.2;min-width:0;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  .stepper span{width:28px;text-align:center;font-size:.9rem;font-weight:600;}
-  .add-btn{
-    background:var(--cafe-900);color:var(--dorado-2);border:none;
-    border-radius:30px;padding:8px 14px;font-size:.82rem;font-weight:700;
-    cursor:pointer;white-space:nowrap;
+  .p-actions{display:flex;align-items:center;gap:4px;flex-shrink:0;}
+  .p-stepper{display:flex;align-items:center;border:1.5px solid var(--crema-2);border-radius:20px;overflow:hidden;}
+  .p-stepper button{
+    background:var(--crema-2);border:none;width:20px;height:20px;
+    font-size:.8rem;cursor:pointer;color:var(--cafe-900);line-height:1;
   }
-  .add-btn:hover{background:var(--cafe-800);}
+  .p-stepper span{width:16px;text-align:center;font-size:.7rem;font-weight:700;}
+  .p-add{
+    background:var(--cafe-900);color:var(--dorado-2);border:none;border-radius:20px;
+    width:24px;height:24px;font-size:.95rem;font-weight:700;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .p-add:hover{background:var(--cafe-800);}
 
   .sample-note{
     text-align:center;font-size:.8rem;color:#8a7867;margin-top:30px;
@@ -303,10 +301,6 @@
 </head>
 <body>
 
-<div class="placeholder-banner">
-  Versión de trabajo v1.3.0 — logo definitivo de Monarca Real ya incorporado. El catálogo y los datos de contacto (dirección, horario, zona de entrega) siguen siendo de ejemplo; las fotos de productos son imágenes de referencia de Wikimedia Commons, pendientes de sustituirse por fotos reales.
-</div>
-
 <header class="site">
   <div class="nav-wrap">
     <a href="#inicio" class="brand">
@@ -351,7 +345,7 @@
     <div class="cat-tabs" id="catTabs"></div>
     <div id="catGroups"></div>
 
-    <p class="sample-note">* Productos y precios de ejemplo. Las fotos marcadas "foto de referencia" son una imagen aproximada (no el producto exacto); los productos sin foto muestran un ícono. Todo se reemplaza por el catálogo real y fotos propias de Monarca Real cuando los compartas.</p>
+    <p class="sample-note">Precios ya confirmados. El punto dorado en algunas fotos indica que es una imagen de referencia (no el producto exacto); pronto se suben fotos propias de cada producto.</p>
   </div>
 </section>
 
@@ -367,7 +361,7 @@
       <ul class="about-list">
         <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Horneado diario</li>
         <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Pedidos por WhatsApp</li>
-        <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Entrega / recolección [por confirmar]</li>
+        <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Atención y pedidos en línea las 24 horas</li>
       </ul>
     </div>
   </div>
@@ -378,20 +372,20 @@
     <div class="section-head">
       <div class="eyebrow">Contacto</div>
       <h2>Ubícanos y contáctanos</h2>
-      <p>Los siguientes datos son de ejemplo — se sustituyen por la información real del negocio.</p>
+      <p>Pedidos por WhatsApp o transferencia, atención en línea las 24 horas.</p>
     </div>
     <div class="contact-grid">
       <div class="contact-card">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg>
         <h3>Dirección</h3>
-        <p>[Calle, número, colonia, ciudad]</p>
-        <span class="placeholder-tag">Pendiente</span>
+        <p>Circuito del Sol Poniente #171, Quinta Bonita</p>
+        <a href="#" class="placeholder-tag" style="background:#e6f9ee;color:#1c7a44;text-decoration:none;" onclick="return false;">Confirmado</a>
       </div>
       <div class="contact-card">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm8-2h-3.2l-1.8-2H9L7.2 6H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2z" opacity="0"/><path d="M12 20a8 8 0 100-16 8 8 0 000 16zm0-14a1 1 0 011 1v4.59l3.7 2.14a1 1 0 11-1 1.73l-4.2-2.43A1 1 0 0111 12V7a1 1 0 011-1z"/></svg>
         <h3>Horario</h3>
-        <p>[Días y horas de atención]</p>
-        <span class="placeholder-tag">Pendiente</span>
+        <p>Pedidos en línea las 24 horas</p>
+        <a href="#" class="placeholder-tag" style="background:#e6f9ee;color:#1c7a44;text-decoration:none;" onclick="return false;">Confirmado</a>
       </div>
       <div class="contact-card">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -434,6 +428,8 @@
       <h4>Contacto</h4>
       <ul>
         <li>WhatsApp: 771 760 3091</li>
+        <li>Circuito del Sol Poniente #171, Quinta Bonita</li>
+        <li>Pedidos en línea 24 horas</li>
         <li>Transferencia: Banco Azteca</li>
         <li>[Correo de contacto]</li>
         <li>[Redes sociales]</li>
@@ -441,7 +437,7 @@
     </div>
   </div>
   <div class="container footer-bottom">
-    © <span id="year"></span> Panadería Monarca Real. Todos los derechos reservados. · Panadería_distribución_v1.3.0
+    © <span id="year"></span> Panadería Monarca Real. Todos los derechos reservados. · Panadería_distribución_v1.4.0
   </div>
 </footer>
 
@@ -477,72 +473,88 @@
   // Número de WhatsApp del negocio (formato internacional, sin espacios ni signos)
   var WA_NUMBER = "527717603091";
 
-  // ---- Catálogo de ejemplo ----
-  // Categorías y productos placeholder: se reemplazan por el catálogo real.
-  // "img": nombre de archivo en Wikimedia Commons (foto de referencia, no siempre el producto exacto).
-  //        null = no se encontró una foto de referencia confiable; se muestra el ícono.
-  //        "ref": true = la foto es una referencia genérica/aproximada, no el producto exacto (se marca en la tarjeta).
+  // ---- Catálogo ----
+  // Precios confirmados por Juances. "img": archivo de Wikimedia Commons (foto de referencia
+  // cuando no corresponde exactamente al producto — se marca con "ref:true" y un punto dorado
+  // en la miniatura). null = no se encontró foto confiable; se muestra un ícono genérico.
   var catalog = [
     {
-      id: "pan-dulce",
-      label: "Pan Dulce",
+      id: "v11",
+      label: "Variedad $11",
       icon: "M12 2c-1 2-3 3-3 6a3 3 0 006 0c0-3-2-4-3-6z",
       items: [
-        { id:"pd1", name:"Concha", desc:"Clásica, vainilla o chocolate", price:13, img:"Concha_(pan_dulce_mexicano)_02.JPG" },
-        { id:"pd2", name:"Cuernito", desc:"Hojaldrado, mantequilla", price:13, img:"Cuerno_(pan_dulce_mexicano)_-_5.jpg" },
-        { id:"pd3", name:"Oreja", desc:"Hojaldre acaramelado", price:13, img:null },
-        { id:"pd7", name:"Ojo", desc:"Pan dulce tradicional", price:13, img:null },
-        { id:"pd8", name:"Dona de moca", desc:"Glaseado sabor moca", price:13, img:"Dunkin-Donuts-Chocolate-Glazed.jpg", ref:true },
-        { id:"pd9", name:"Rol de canela", desc:"Enrollado, relleno de canela", price:13, img:"Cinnamon_roll.jpg", ref:true },
-        { id:"pd10", name:"Bigote", desc:"Pan dulce tradicional", price:13, img:null },
-        { id:"pd11", name:"Rollo de canela", desc:"Enrollado, relleno de canela", price:13, img:"Cinnamon_rolls_fully_baked.jpg", ref:true },
-        { id:"pd12", name:"Broca", desc:"Pan dulce tradicional", price:13, img:null },
-        { id:"pd4", name:"Dona glaseada", desc:"Glaseado clásico", price:13, img:"Glazed-Donut.jpg" },
-        { id:"pd5", name:"Cocol", desc:"Pan dulce con ajonjolí", price:13, img:null },
-        { id:"pd6", name:"Empanada de manzana", desc:"Relleno de manzana", price:13, img:"Appleturnover.jpg" },
-        { id:"pd13", name:"Pay de queso", desc:"Pieza individual", price:13, img:"Cheesecake.jpg", ref:true }
+        { id:"v11-01", name:"Concha", desc:"Chocolate o vainilla", price:11, img:"Concha_(pan_dulce_mexicano)_02.JPG" },
+        { id:"v11-02", name:"Mordidas", desc:"Chocolate o vainilla", price:11, img:null },
+        { id:"v11-03", name:"Chicharrones", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-04", name:"Bigotes", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-05", name:"Corbatas", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-06", name:"Almohadas", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-07", name:"Palomas", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-08", name:"Hojaldras", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-09", name:"Hilos", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-10", name:"Cuernos", desc:"Hojaldrado, mantequilla", price:11, img:"Cuerno_(pan_dulce_mexicano)_-_5.jpg" },
+        { id:"v11-11", name:"Cocol", desc:"Pan dulce con ajonjolí", price:11, img:null },
+        { id:"v11-12", name:"Bisquets", desc:"Pan dulce tradicional", price:11, img:"Fresh_Baked_Biscuits_(2675532274).jpg", ref:true },
+        { id:"v11-13", name:"Galleta de gragea", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-14", name:"Tampiqueñas", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-15", name:"Piedras", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-16", name:"Ladrillos", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-17", name:"Rosca de chocolate", desc:"Pan dulce tradicional", price:11, img:"Chocolate_babka.jpg", ref:true },
+        { id:"v11-18", name:"Mantecadas", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-19", name:"Rosca de canela", desc:"Pan dulce tradicional", price:11, img:"Cinnamon_roll.jpg", ref:true },
+        { id:"v11-20", name:"Manoplas", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-21", name:"Orejas", desc:"Hojaldre acaramelado", price:11, img:null },
+        { id:"v11-22", name:"Rebanadas", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-23", name:"Gusanos de canela", desc:"Pan dulce tradicional", price:11, img:"Cinnamon_rolls_fully_baked.jpg", ref:true },
+        { id:"v11-24", name:"Laurel", desc:"Pan dulce tradicional", price:11, img:null },
+        { id:"v11-25", name:"Polvorón estrellado", desc:"Pan dulce tradicional", price:11, img:null }
       ]
     },
     {
-      id: "pan-salado",
-      label: "Pan Salado",
+      id: "v14",
+      label: "Variedad $14",
+      icon: "M12 2c-1 2-3 3-3 6a3 3 0 006 0c0-3-2-4-3-6z",
+      items: [
+        { id:"v14-01", name:"Donas", desc:"Chocolate, azúcar o moka", price:14, img:"Glazed-Donut.jpg", ref:true },
+        { id:"v14-02", name:"Berlinesas", desc:"Rellenas", price:14, img:"Berliner_(pastry).jpg", ref:true },
+        { id:"v14-03", name:"Barquillos", desc:"Pan dulce tradicional", price:14, img:"Cuchufli_Barquillo_(3113277479).jpg", ref:true },
+        { id:"v14-04", name:"Burras", desc:"Pan dulce tradicional", price:14, img:null },
+        { id:"v14-05", name:"Tacos", desc:"Piña, manzana o fresa", price:14, img:"Appleturnover.jpg", ref:true },
+        { id:"v14-06", name:"Rejas", desc:"Fresa o piña", price:14, img:null },
+        { id:"v14-07", name:"Abanicos", desc:"Hojaldre", price:14, img:null },
+        { id:"v14-08", name:"Ojo de buey", desc:"Pan dulce tradicional", price:14, img:null },
+        { id:"v14-09", name:"Empanadas", desc:"Queso o piña", price:14, img:"Appleturnover.jpg", ref:true },
+        { id:"v14-10", name:"Roles de canela envinado", desc:"Enrollado, relleno de canela", price:14, img:"Cinnamon_roll.jpg", ref:true },
+        { id:"v14-11", name:"Pay de queso", desc:"Pieza individual", price:14, img:"Cheesecake.jpg", ref:true },
+        { id:"v14-12", name:"Budín", desc:"Pieza individual", price:14, img:"Bread_pudding_June_2020.jpg", ref:true },
+        { id:"v14-13", name:"Canastas", desc:"Fresa, piña o manzana", price:14, img:null },
+        { id:"v14-14", name:"Borregos", desc:"Pan dulce tradicional", price:14, img:null },
+        { id:"v14-15", name:"Chino", desc:"Pan dulce tradicional", price:14, img:null },
+        { id:"v14-16", name:"Cacahuate", desc:"Pan dulce tradicional", price:14, img:null },
+        { id:"v14-17", name:"Almeja", desc:"Pan dulce tradicional", price:14, img:null },
+        { id:"v14-18", name:"Besos", desc:"Pan dulce tradicional", price:14, img:null },
+        { id:"v14-19", name:"Polvorón sevillano", desc:"Pan dulce tradicional", price:14, img:null },
+        { id:"v14-20", name:"Polvorón de cacahuate", desc:"Pan dulce tradicional", price:14, img:null },
+        { id:"v14-21", name:"Brocas", desc:"Pan dulce tradicional", price:14, img:null },
+        { id:"v14-22", name:"Panqué de nuez", desc:"Pieza individual", price:14, img:"Pound_cake,_September_2007_(cropped).jpg", ref:true },
+        { id:"v14-23", name:"Dominó", desc:"Pan dulce tradicional", price:14, img:null }
+      ]
+    },
+    {
+      id: "bolillo-telera",
+      label: "Bolillo y Telera",
       icon: "M4 12h16M4 12a8 8 0 0116 0M4 12a8 8 0 0016 0",
       items: [
-        { id:"ps1", name:"Bolillo", desc:"Pieza individual", price:6, img:"Bread_mexican_pan_mexicano_bolillo_(2).jpg" },
-        { id:"ps2", name:"Telera", desc:"Pieza individual", price:6, img:"Telera_01.JPG" },
-        { id:"ps3", name:"Baguette", desc:"Pieza 40cm aprox.", price:28, img:"Baguette.jpg" },
-        { id:"ps4", name:"Pan de ajo", desc:"Con mantequilla de ajo", price:20, img:"Garlic_bread.jpg", ref:true }
+        { id:"bt-01", name:"Bolillo", desc:"Pieza individual", price:4, img:"Bread_mexican_pan_mexicano_bolillo_(2).jpg" },
+        { id:"bt-02", name:"Telera", desc:"Pieza individual", price:4, img:"Telera_01.JPG" }
       ]
     },
     {
-      id: "pan-caja",
-      label: "Pan de Caja",
-      icon: "M4 6h16v12H4z",
+      id: "pambazos",
+      label: "Pambazos",
+      icon: "M4 12h16M4 12a8 8 0 0116 0M4 12a8 8 0 0016 0",
       items: [
-        { id:"pc1", name:"Pan de caja blanco", desc:"Barra 680g", price:42, img:"Slice_of_Bread.jpg", ref:true },
-        { id:"pc2", name:"Pan de caja integral", desc:"Barra 680g", price:46, img:"Vegan_no-knead_whole_wheat_bread_loaf,_September_2010.jpg", ref:true },
-        { id:"pc3", name:"Pan de caja multigrano", desc:"Barra 680g", price:48, img:"Multigrain_bread.JPG", ref:true }
-      ]
-    },
-    {
-      id: "pasteleria",
-      label: "Pastelería",
-      icon: "M4 20h16v-6H4zM6 14V9a6 6 0 0112 0v5",
-      items: [
-        { id:"pt1", name:"Pastel de chocolate (rebanada)", desc:"Ganache de chocolate", price:38, img:"Chocolate_cake.jpg", ref:true },
-        { id:"pt2", name:"Pastel de vainilla (rebanada)", desc:"Relleno de crema", price:35, img:"Cake_slice_-_original.JPG", ref:true },
-        { id:"pt3", name:"Cheesecake (rebanada)", desc:"Con frutos rojos", price:42, img:"Cheesecake.jpg", ref:true },
-        { id:"pt4", name:"Pay de queso (rebanada)", desc:"Base de galleta", price:40, img:"Plain_New_York-style_cheesecake.JPG", ref:true }
-      ]
-    },
-    {
-      id: "galletas",
-      label: "Galletas",
-      icon: "M12 4a2 2 0 110 4 2 2 0 010-4zm-6 8a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm12 2a1 1 0 110 2 1 1 0 010-2z",
-      items: [
-        { id:"gl1", name:"Galletas de mantequilla (6 pz)", desc:"Receta clásica", price:35, img:"Danish-butter-cookies_(ring-shaped).jpg", ref:true },
-        { id:"gl2", name:"Galletas de avena (6 pz)", desc:"Con pasas", price:35, img:"Dad's_Original_Scotch_Oatmeal_Cookies_(15450276577).jpg", ref:true },
-        { id:"gl3", name:"Galletas de chispas de chocolate (6 pz)", desc:"Chispas semiamargas", price:38, img:"Chocolate_chip_cookies.jpg" }
+        { id:"pz-01", name:"Pambazo", desc:"Pieza individual", price:5, img:"Pambazo.jpg" }
       ]
     }
   ];
@@ -571,49 +583,53 @@
       group.className = "cat-group" + (idx === 0 ? " visible" : "");
       group.id = "group-" + cat.id;
 
-      var grid = document.createElement('div');
-      grid.className = "product-grid";
+      var list = document.createElement('div');
+      list.className = "product-list";
 
       cat.items.forEach(function(item){
         qtyDraft[item.id] = 1;
-        var card = document.createElement('div');
-        card.className = "product-card";
+        var row = document.createElement('div');
+        row.className = "product-row";
 
         var fallbackIcon = '<div class="thumb-fallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="' + cat.icon + '"/></svg></div>';
         var thumbHtml;
         if (item.img){
-          var src = "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(item.img) + "?width=400";
+          var src = "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(item.img) + "?width=120";
           thumbHtml =
-            '<div class="product-thumb">' +
+            '<div class="p-thumb">' +
               '<img src="' + src + '" alt="' + item.name + '" loading="lazy" ' +
                 'onerror="var p=this.parentElement; this.remove(); if(p){var fb=p.querySelector(\'.thumb-fallback\'); if(fb) fb.style.display=\'flex\';}">' +
               fallbackIcon +
-              (item.ref ? '<span class="ref-tag">foto de referencia</span>' : '') +
+              (item.ref ? '<span class="ref-dot" title="Foto de referencia, no el producto exacto"></span>' : '') +
             '</div>';
         } else {
           // sin foto de referencia disponible: se muestra el ícono directamente
-          thumbHtml = '<div class="product-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="' + cat.icon + '"/></svg></div>';
+          thumbHtml = '<div class="p-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="' + cat.icon + '"/></svg></div>';
         }
 
-        card.innerHTML =
+        row.innerHTML =
           thumbHtml +
-          '<div class="product-body">' +
-            '<h3>' + item.name + '</h3>' +
-            '<div class="desc">' + item.desc + '</div>' +
-            '<div class="product-price">' + currency(item.price) + '</div>' +
-            '<div class="qty-row">' +
-              '<div class="stepper">' +
-                '<button data-act="minus" data-id="' + item.id + '">−</button>' +
-                '<span id="qty-' + item.id + '">1</span>' +
-                '<button data-act="plus" data-id="' + item.id + '">+</button>' +
+          '<div class="p-main">' +
+            '<div class="p-line1">' +
+              '<h3>' + item.name + '</h3>' +
+              '<div class="p-price">' + currency(item.price) + '</div>' +
+            '</div>' +
+            '<div class="p-line2">' +
+              '<div class="p-desc">' + item.desc + '</div>' +
+              '<div class="p-actions">' +
+                '<div class="p-stepper">' +
+                  '<button data-act="minus" data-id="' + item.id + '">−</button>' +
+                  '<span id="qty-' + item.id + '">1</span>' +
+                  '<button data-act="plus" data-id="' + item.id + '">+</button>' +
+                '</div>' +
+                '<button class="p-add" data-add="' + item.id + '" title="Agregar al pedido">+</button>' +
               '</div>' +
-              '<button class="add-btn" data-add="' + item.id + '">Agregar</button>' +
             '</div>' +
           '</div>';
-        grid.appendChild(card);
+        list.appendChild(row);
       });
 
-      group.appendChild(grid);
+      group.appendChild(list);
       groupsEl.appendChild(group);
     });
 
@@ -718,18 +734,23 @@
   function sendOrder(){
     var ids = Object.keys(cart);
     if (ids.length === 0) return;
-    var lines = ["Hola, quiero hacer un pedido en Panadería Monarca Real:"];
+    var SEP = "\u2015\u2015\u2015\u2015\u2015\u2015\u2015\u2015\u2015\u2015\u2015\u2015\u2015\u2015";
+    var lines = [];
+    lines.push("*PEDIDO \u2014 PANADER\u00cdA MONARCA REAL* \ud83e\udd50");
+    lines.push(SEP);
     var total = 0;
     ids.forEach(function(id){
       var it = cart[id];
       var sub = it.qty * it.price;
       total += sub;
-      lines.push("- " + it.name + " x" + it.qty + " (" + currency(sub) + ")");
+      lines.push("\u2022 " + it.name + "  \u00d7" + it.qty + "  \u00b7  " + currency(sub));
     });
-    lines.push("Total: " + currency(total));
+    lines.push(SEP);
+    lines.push("*Total: " + currency(total) + "*");
     lines.push("");
     lines.push("Nombre: ");
-    lines.push("¿Entrega o recolección?: ");
+    lines.push("Entrega o recolecci\u00f3n: ");
+    lines.push("Pago (efectivo / transferencia): ");
     var msg = encodeURIComponent(lines.join("\n"));
     window.open("https://wa.me/" + WA_NUMBER + "?text=" + msg, "_blank");
   }
