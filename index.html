@@ -1,1 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panadería Monarca Real</title>
+<style>
+  :root{
+    --crema:#fdf6ea;
+    --crema-2:#f7ecd9;
+    --cafe-900:#3b2415;
+    --cafe-800:#4a2e1c;
+    --cafe-700:#6b4128;
+    --dorado:#c9973b;
+    --dorado-2:#e0b563;
+    --terracota:#b3552f;
+    --verde-wa:#25D366;
+    --verde-wa-dark:#1ebe57;
+    --sombra:0 6px 18px rgba(59,36,21,0.12);
+    --radio:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:var(--crema);
+    color:var(--cafe-900);
+    line-height:1.55;
+  }
+  img{max-width:100%;}
+  a{color:inherit;}
+  .container{max-width:1180px;margin:0 auto;padding:0 20px;}
 
+  /* ===== Header ===== */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:var(--cafe-900);
+    color:var(--crema);
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
+  }
+  .nav-wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:12px 20px;max-width:1180px;margin:0 auto;
+    gap:12px;flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--crema);}
+  .brand svg{width:38px;height:38px;flex-shrink:0;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.1;}
+  .brand-text strong{font-size:1.25rem;letter-spacing:.3px;color:var(--dorado-2);}
+  .brand-text span{font-size:.72rem;color:#e7d7bd;text-transform:uppercase;letter-spacing:1px;}
+  nav.main-links{display:flex;gap:22px;flex-wrap:wrap;}
+  nav.main-links a{
+    text-decoration:none;color:var(--crema);font-size:.95rem;
+    padding:6px 2px;border-bottom:2px solid transparent;transition:border-color .2s;
+  }
+  nav.main-links a:hover{border-color:var(--dorado);}
+  .cart-btn{
+    display:flex;align-items:center;gap:8px;
+    background:var(--dorado);color:var(--cafe-900);
+    border:none;border-radius:30px;padding:9px 16px;
+    font-weight:600;font-size:.92rem;cursor:pointer;
+    box-shadow:var(--sombra);
+  }
+  .cart-btn:hover{background:var(--dorado-2);}
+  .cart-count{
+    background:var(--cafe-900);color:var(--dorado-2);
+    border-radius:50%;min-width:20px;height:20px;
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:.72rem;padding:0 4px;
+  }
+
+  /* ===== Placeholder banner ===== */
+  .placeholder-banner{
+    background:#fff4d6;border-bottom:1px solid #e9d8a6;
+    color:#6b4f16;font-size:.82rem;text-align:center;
+    padding:8px 16px;
+  }
+
+  /* ===== Hero ===== */
+  .hero{
+    background:linear-gradient(135deg, var(--cafe-800), var(--cafe-900));
+    color:var(--crema);
+    padding:70px 20px 90px;
+    position:relative;overflow:hidden;
+  }
+  .hero::after{
+    content:"";position:absolute;right:-60px;bottom:-60px;width:280px;height:280px;
+    background:radial-gradient(circle, rgba(201,151,59,.25), transparent 70%);
+  }
+  .hero-inner{max-width:1180px;margin:0 auto;position:relative;z-index:2;}
+  .hero h1{
+    font-size:clamp(2rem, 4.5vw, 3rem);
+    margin:0 0 14px;color:#fff;
+  }
+  .hero h1 span{color:var(--dorado-2);}
+  .hero p{max-width:560px;color:#ecdfc7;font-size:1.05rem;margin:0 0 28px;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 26px;border-radius:30px;
+    font-weight:600;font-size:.95rem;text-decoration:none;
+    cursor:pointer;border:none;transition:transform .15s, background .2s;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--dorado);color:var(--cafe-900);}
+  .btn-primary:hover{background:var(--dorado-2);}
+  .btn-outline{background:transparent;color:var(--crema);border:1.5px solid var(--dorado-2);}
+  .btn-outline:hover{background:rgba(224,181,99,.12);}
+
+  /* ===== Section heading ===== */
+  .section{padding:64px 20px;}
+  .section-head{max-width:640px;margin:0 auto 40px;text-align:center;}
+  .eyebrow{
+    text-transform:uppercase;letter-spacing:2px;font-size:.75rem;
+    color:var(--terracota);font-weight:700;margin-bottom:8px;
+  }
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.1rem);margin:0 0 10px;color:var(--cafe-900);}
+  .section-head p{color:#6b5847;margin:0;}
+
+  /* ===== Catalog ===== */
+  .cat-tabs{
+    display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:34px;
+  }
+  .cat-tab{
+    background:var(--crema-2);border:1.5px solid transparent;
+    color:var(--cafe-800);padding:9px 18px;border-radius:30px;
+    font-size:.9rem;font-weight:600;cursor:pointer;
+  }
+  .cat-tab.active{background:var(--cafe-900);color:var(--dorado-2);}
+  .cat-group{display:none;}
+  .cat-group.visible{display:block;}
+  .product-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:22px;
+  }
+  .product-card{
+    background:#fff;border-radius:var(--radio);
+    box-shadow:var(--sombra);overflow:hidden;
+    display:flex;flex-direction:column;
+  }
+  .product-thumb{
+    height:120px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg, var(--crema-2), #f0deb8);
+  }
+  .product-thumb svg{width:52px;height:52px;color:var(--terracota);}
+  .product-body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:8px;flex:1;}
+  .product-body h3{margin:0;font-size:1.02rem;color:var(--cafe-900);}
+  .product-body .desc{font-size:.82rem;color:#8a7867;min-height:32px;}
+  .product-price{font-weight:700;color:var(--terracota);font-size:1.05rem;}
+  .qty-row{
+    display:flex;align-items:center;justify-content:space-between;margin-top:auto;gap:10px;
+  }
+  .stepper{display:flex;align-items:center;border:1.5px solid var(--crema-2);border-radius:30px;overflow:hidden;}
+  .stepper button{
+    background:var(--crema-2);border:none;width:30px;height:30px;
+    font-size:1rem;cursor:pointer;color:var(--cafe-900);
+  }
+  .stepper span{width:28px;text-align:center;font-size:.9rem;font-weight:600;}
+  .add-btn{
+    background:var(--cafe-900);color:var(--dorado-2);border:none;
+    border-radius:30px;padding:8px 14px;font-size:.82rem;font-weight:700;
+    cursor:pointer;white-space:nowrap;
+  }
+  .add-btn:hover{background:var(--cafe-800);}
+
+  .sample-note{
+    text-align:center;font-size:.8rem;color:#8a7867;margin-top:30px;
+  }
+
+  /* ===== Nosotros ===== */
+  .about-section{background:var(--crema-2);}
+  .about-grid{
+    display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;
+  }
+  .about-grid .art{
+    background:linear-gradient(135deg,var(--dorado),var(--terracota));
+    border-radius:var(--radio);min-height:240px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:var(--sombra);
+  }
+  .about-grid .art svg{width:100px;height:100px;color:#fff;opacity:.9;}
+  .about-text h2{margin-top:0;}
+  .about-text p{color:#5c4a3a;}
+  .about-list{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:10px;}
+  .about-list li{display:flex;gap:10px;align-items:flex-start;color:#4a3a2c;font-size:.95rem;}
+  .about-list svg{width:18px;height:18px;flex-shrink:0;margin-top:3px;color:var(--terracota);}
+
+  /* ===== Contact ===== */
+  .contact-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:24px;
+  }
+  .contact-card{
+    background:#fff;border-radius:var(--radio);padding:24px;box-shadow:var(--sombra);
+  }
+  .contact-card svg{width:26px;height:26px;color:var(--terracota);margin-bottom:10px;}
+  .contact-card h3{margin:0 0 6px;font-size:1rem;color:var(--cafe-900);}
+  .contact-card p{margin:0;color:#6b5847;font-size:.9rem;}
+  .placeholder-tag{
+    display:inline-block;margin-top:8px;font-size:.7rem;
+    background:#fff4d6;color:#7a5a12;padding:3px 8px;border-radius:20px;
+  }
+
+  /* ===== Footer ===== */
+  footer.site{
+    background:var(--cafe-900);color:#e7d7bd;padding:40px 20px 24px;
+  }
+  .footer-grid{
+    display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:30px;margin-bottom:26px;
+  }
+  .footer-grid h4{color:var(--dorado-2);margin:0 0 12px;font-size:.95rem;}
+  .footer-grid p, .footer-grid li{font-size:.85rem;color:#cbb999;}
+  .footer-grid ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
+  .footer-grid a{text-decoration:none;color:#cbb999;}
+  .footer-grid a:hover{color:var(--dorado-2);}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.1);padding-top:16px;
+    text-align:center;font-size:.78rem;color:#a3927a;
+  }
+
+  /* ===== WhatsApp floating button ===== */
+  .wa-float{
+    position:fixed;bottom:22px;right:22px;z-index:80;
+    background:var(--verde-wa);color:#fff;
+    width:60px;height:60px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 16px rgba(0,0,0,.28);
+    text-decoration:none;
+    animation:pulse 2.4s infinite;
+  }
+  .wa-float:hover{background:var(--verde-wa-dark);}
+  .wa-float svg{width:30px;height:30px;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(37,211,102,.45);}
+    70%{box-shadow:0 0 0 14px rgba(37,211,102,0);}
+    100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
+  }
+
+  /* ===== Cart drawer ===== */
+  .overlay{
+    position:fixed;inset:0;background:rgba(30,18,10,.45);
+    z-index:90;opacity:0;pointer-events:none;transition:opacity .2s;
+  }
+  .overlay.open{opacity:1;pointer-events:auto;}
+  .cart-drawer{
+    position:fixed;top:0;right:0;height:100%;width:min(380px,92vw);
+    background:#fff;z-index:95;box-shadow:-8px 0 24px rgba(0,0,0,.18);
+    transform:translateX(100%);transition:transform .25s ease;
+    display:flex;flex-direction:column;
+  }
+  .cart-drawer.open{transform:translateX(0);}
+  .cart-head{
+    padding:18px 20px;background:var(--cafe-900);color:var(--crema);
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .cart-head h3{margin:0;font-size:1.05rem;}
+  .cart-head button{
+    background:none;border:none;color:var(--crema);font-size:1.3rem;cursor:pointer;line-height:1;
+  }
+  .cart-items{flex:1;overflow-y:auto;padding:14px 20px;display:flex;flex-direction:column;gap:14px;}
+  .cart-empty{color:#8a7867;font-size:.9rem;text-align:center;margin-top:40px;}
+  .cart-item{display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:1px solid #f0e6d3;padding-bottom:12px;}
+  .cart-item .ci-name{font-size:.92rem;font-weight:600;color:var(--cafe-900);}
+  .cart-item .ci-sub{font-size:.78rem;color:#8a7867;}
+  .cart-item .ci-remove{background:none;border:none;color:var(--terracota);font-size:.78rem;cursor:pointer;text-decoration:underline;padding:0;margin-top:2px;}
+  .cart-item .ci-right{text-align:right;}
+  .cart-footer{
+    padding:18px 20px;border-top:1px solid #f0e6d3;
+  }
+  .cart-total-row{display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem;margin-bottom:14px;color:var(--cafe-900);}
+  .cart-send{
+    width:100%;background:var(--verde-wa);color:#fff;border:none;
+    border-radius:30px;padding:13px;font-weight:700;font-size:.95rem;
+    display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;
+  }
+  .cart-send:hover{background:var(--verde-wa-dark);}
+  .cart-send[disabled]{opacity:.5;cursor:not-allowed;}
+  .cart-note{font-size:.75rem;color:#8a7867;text-align:center;margin-top:10px;}
+
+  @media (max-width:760px){
+    nav.main-links{display:none;}
+    .about-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="placeholder-banner">
+  Versión de trabajo v1.0.0 — catálogo, colores/logo y datos de contacto son de ejemplo, pendientes de la información real de Panadería Monarca Real.
+</div>
+
+<header class="site">
+  <div class="nav-wrap">
+    <a href="#inicio" class="brand">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 26L16 12L24 24L32 8L40 24L48 12L56 26L52 26L52 30C52 30 50 34 32 34C14 34 12 30 12 30L12 26L8 26Z" fill="#e0b563"/>
+        <circle cx="16" cy="10" r="3" fill="#e0b563"/>
+        <circle cx="32" cy="6" r="3" fill="#e0b563"/>
+        <circle cx="48" cy="10" r="3" fill="#e0b563"/>
+        <path d="M12 34C12 34 16 46 32 46C48 46 52 34 52 34" stroke="#e0b563" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-text">
+        <strong>Monarca Real</strong>
+        <span>Panadería</span>
+      </span>
+    </a>
+    <nav class="main-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#catalogo">Catálogo</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button class="cart-btn" onclick="openCart()">
+      🛒
+      Pedido <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="hero-inner">
+    <h1>Pan fresco, hecho <span>como en casa</span></h1>
+    <p>Panadería Monarca Real: pan dulce, pan salado y repostería horneados todos los días. Arma tu pedido en línea y recíbelo o pásalo a recoger — coordinamos todo por WhatsApp.</p>
+    <div class="hero-ctas">
+      <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
+      <a href="#contacto" class="btn btn-outline">Ubicación y horarios</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="catalogo">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Catálogo</div>
+      <h2>Nuestros productos</h2>
+      <p>Selecciona los productos y cantidades que quieras — se agregan a tu pedido para enviarlo por WhatsApp.</p>
+    </div>
+
+    <div class="cat-tabs" id="catTabs"></div>
+    <div id="catGroups"></div>
+
+    <p class="sample-note">* Productos y precios de ejemplo. Se reemplazan por el catálogo real de Monarca Real cuando lo compartas.</p>
+  </div>
+</section>
+
+<section class="section about-section" id="nosotros">
+  <div class="container about-grid">
+    <div class="art">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c-1 2-3 3-3 6a3 3 0 006 0c0-3-2-4-3-6zm-6 9c2 1 3 3 6 3s4-2 6-3c1 3-1 6-4 7v1h-4v-1c-3-1-5-4-4-7z"/></svg>
+    </div>
+    <div class="about-text">
+      <div class="eyebrow">Nosotros</div>
+      <h2>Panadería Monarca Real</h2>
+      <p>[Espacio para la descripción real de la panadería: historia, años de experiencia, qué la distingue, etc. Juances la completa con la información de Monarca Real.]</p>
+      <ul class="about-list">
+        <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Horneado diario</li>
+        <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Pedidos por WhatsApp</li>
+        <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg> Entrega / recolección [por confirmar]</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contacto">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Contacto</div>
+      <h2>Ubícanos y contáctanos</h2>
+      <p>Los siguientes datos son de ejemplo — se sustituyen por la información real del negocio.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1112 6.5a2.5 2.5 0 010 5z"/></svg>
+        <h3>Dirección</h3>
+        <p>[Calle, número, colonia, ciudad]</p>
+        <span class="placeholder-tag">Pendiente</span>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm8-2h-3.2l-1.8-2H9L7.2 6H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V8a2 2 0 00-2-2z" opacity="0"/><path d="M12 20a8 8 0 100-16 8 8 0 000 16zm0-14a1 1 0 011 1v4.59l3.7 2.14a1 1 0 11-1 1.73l-4.2-2.43A1 1 0 0111 12V7a1 1 0 011-1z"/></svg>
+        <h3>Horario</h3>
+        <p>[Días y horas de atención]</p>
+        <span class="placeholder-tag">Pendiente</span>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <h3>Zona de entrega</h3>
+        <p>[Colonias o radio de entrega a domicilio]</p>
+        <span class="placeholder-tag">Pendiente</span>
+      </div>
+      <div class="contact-card">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z"/></svg>
+        <h3>WhatsApp</h3>
+        <p>711 136 6000</p>
+        <a href="#" class="placeholder-tag" style="background:#e6f9ee;color:#1c7a44;text-decoration:none;" onclick="return false;">Confirmado</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="container footer-grid">
+    <div>
+      <h4>Monarca Real</h4>
+      <p>Panadería. Pan fresco horneado todos los días, catálogo y pedidos en un solo lugar.</p>
+    </div>
+    <div>
+      <h4>Enlaces</h4>
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contacto</h4>
+      <ul>
+        <li>WhatsApp: 711 136 6000</li>
+        <li>[Correo de contacto]</li>
+        <li>[Redes sociales]</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    © <span id="year"></span> Panadería Monarca Real. Todos los derechos reservados. · Panadería_distribución_v1.0.0
+  </div>
+</footer>
+
+<a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" title="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.5.73 4.83 2 6.78L4 29l7.4-1.94a11.9 11.9 0 004.62.94h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 21.85a9.8 9.8 0 01-4.99-1.37l-.36-.21-4.39 1.15 1.17-4.28-.23-.44a9.83 9.83 0 01-1.5-5.68c0-5.43 4.42-9.85 9.85-9.85s9.85 4.42 9.85 9.85-4.41 9.83-9.85 9.83zm5.4-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.21 5.09 4.5.71.31 1.26.49 1.69.63.71.23 1.35.2 1.86.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
+</a>
+
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-head">
+    <h3>Tu pedido</h3>
+    <button onclick="closeCart()">&times;</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="cart-empty">Aún no has agregado productos.</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <span id="cartTotal">$0.00 MXN</span>
+    </div>
+    <button class="cart-send" id="sendBtn" disabled onclick="sendOrder()">
+      <svg viewBox="0 0 32 32" width="18" height="18" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.5.73 4.83 2 6.78L4 29l7.4-1.94a11.9 11.9 0 004.62.94h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 21.85a9.8 9.8 0 01-4.99-1.37l-.36-.21-4.39 1.15 1.17-4.28-.23-.44a9.83 9.83 0 01-1.5-5.68c0-5.43 4.42-9.85 9.85-9.85s9.85 4.42 9.85 9.85-4.41 9.83-9.85 9.83z"/></svg>
+      Enviar pedido por WhatsApp
+    </button>
+    <p class="cart-note">Se abrirá WhatsApp con el resumen de tu pedido para confirmarlo con la panadería.</p>
+  </div>
+</aside>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Número de WhatsApp del negocio (formato internacional, sin espacios ni signos)
+  var WA_NUMBER = "527111366000";
+
+  // ---- Catálogo de ejemplo ----
+  // Categorías y productos placeholder: se reemplazan por el catálogo real.
+  var catalog = [
+    {
+      id: "pan-dulce",
+      label: "Pan Dulce",
+      icon: "M12 2c-1 2-3 3-3 6a3 3 0 006 0c0-3-2-4-3-6z",
+      items: [
+        { id:"pd1", name:"Concha", desc:"Clásica, vainilla o chocolate", price:14 },
+        { id:"pd2", name:"Cuernito", desc:"Hojaldrado, mantequilla", price:13 },
+        { id:"pd3", name:"Oreja", desc:"Hojaldre acaramelado", price:15 },
+        { id:"pd4", name:"Dona glaseada", desc:"Glaseado clásico", price:16 },
+        { id:"pd5", name:"Cocol", desc:"Pan dulce con ajonjolí", price:13 },
+        { id:"pd6", name:"Empanada de manzana", desc:"Relleno de manzana", price:18 }
+      ]
+    },
+    {
+      id: "pan-salado",
+      label: "Pan Salado",
+      icon: "M4 12h16M4 12a8 8 0 0116 0M4 12a8 8 0 0016 0",
+      items: [
+        { id:"ps1", name:"Bolillo", desc:"Pieza individual", price:6 },
+        { id:"ps2", name:"Telera", desc:"Pieza individual", price:6 },
+        { id:"ps3", name:"Baguette", desc:"Pieza 40cm aprox.", price:28 },
+        { id:"ps4", name:"Pan de ajo", desc:"Con mantequilla de ajo", price:20 }
+      ]
+    },
+    {
+      id: "pan-caja",
+      label: "Pan de Caja",
+      icon: "M4 6h16v12H4z",
+      items: [
+        { id:"pc1", name:"Pan de caja blanco", desc:"Barra 680g", price:42 },
+        { id:"pc2", name:"Pan de caja integral", desc:"Barra 680g", price:46 },
+        { id:"pc3", name:"Pan de caja multigrano", desc:"Barra 680g", price:48 }
+      ]
+    },
+    {
+      id: "pasteleria",
+      label: "Pastelería",
+      icon: "M4 20h16v-6H4zM6 14V9a6 6 0 0112 0v5",
+      items: [
+        { id:"pt1", name:"Pastel de chocolate (rebanada)", desc:"Ganache de chocolate", price:38 },
+        { id:"pt2", name:"Pastel de vainilla (rebanada)", desc:"Relleno de crema", price:35 },
+        { id:"pt3", name:"Cheesecake (rebanada)", desc:"Con frutos rojos", price:42 },
+        { id:"pt4", name:"Pay de queso (rebanada)", desc:"Base de galleta", price:40 }
+      ]
+    },
+    {
+      id: "galletas",
+      label: "Galletas",
+      icon: "M12 4a2 2 0 110 4 2 2 0 010-4zm-6 8a1.5 1.5 0 110 3 1.5 1.5 0 010-3zm12 2a1 1 0 110 2 1 1 0 010-2z",
+      items: [
+        { id:"gl1", name:"Galletas de mantequilla (6 pz)", desc:"Receta clásica", price:35 },
+        { id:"gl2", name:"Galletas de avena (6 pz)", desc:"Con pasas", price:35 },
+        { id:"gl3", name:"Galletas de chispas de chocolate (6 pz)", desc:"Chispas semiamargas", price:38 }
+      ]
+    }
+  ];
+
+  var cart = {}; // { itemId: { name, price, qty } }
+  var qtyDraft = {}; // stepper quantities before adding, per item
+
+  function currency(n){
+    return "$" + n.toFixed(2) + " MXN";
+  }
+
+  function renderCatalog(){
+    var tabsEl = document.getElementById('catTabs');
+    var groupsEl = document.getElementById('catGroups');
+    tabsEl.innerHTML = "";
+    groupsEl.innerHTML = "";
+
+    catalog.forEach(function(cat, idx){
+      var tab = document.createElement('button');
+      tab.className = "cat-tab" + (idx === 0 ? " active" : "");
+      tab.textContent = cat.label;
+      tab.onclick = function(){ selectCategory(cat.id); };
+      tabsEl.appendChild(tab);
+
+      var group = document.createElement('div');
+      group.className = "cat-group" + (idx === 0 ? " visible" : "");
+      group.id = "group-" + cat.id;
+
+      var grid = document.createElement('div');
+      grid.className = "product-grid";
+
+      cat.items.forEach(function(item){
+        qtyDraft[item.id] = 1;
+        var card = document.createElement('div');
+        card.className = "product-card";
+        card.innerHTML =
+          '<div class="product-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="' + cat.icon + '"/></svg></div>' +
+          '<div class="product-body">' +
+            '<h3>' + item.name + '</h3>' +
+            '<div class="desc">' + item.desc + '</div>' +
+            '<div class="product-price">' + currency(item.price) + '</div>' +
+            '<div class="qty-row">' +
+              '<div class="stepper">' +
+                '<button data-act="minus" data-id="' + item.id + '">−</button>' +
+                '<span id="qty-' + item.id + '">1</span>' +
+                '<button data-act="plus" data-id="' + item.id + '">+</button>' +
+              '</div>' +
+              '<button class="add-btn" data-add="' + item.id + '">Agregar</button>' +
+            '</div>' +
+          '</div>';
+        grid.appendChild(card);
+      });
+
+      group.appendChild(grid);
+      groupsEl.appendChild(group);
+    });
+
+    // wire stepper + add buttons
+    groupsEl.querySelectorAll('button[data-act]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = btn.getAttribute('data-id');
+        var act = btn.getAttribute('data-act');
+        var q = qtyDraft[id] || 1;
+        if(act === 'plus') q = Math.min(q + 1, 99);
+        if(act === 'minus') q = Math.max(q - 1, 1);
+        qtyDraft[id] = q;
+        document.getElementById('qty-' + id).textContent = q;
+      });
+    });
+    groupsEl.querySelectorAll('button[data-add]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = btn.getAttribute('data-add');
+        addToCart(id, qtyDraft[id] || 1);
+      });
+    });
+  }
+
+  function findItem(id){
+    for (var c=0; c<catalog.length; c++){
+      for (var i=0; i<catalog[c].items.length; i++){
+        if (catalog[c].items[i].id === id) return catalog[c].items[i];
+      }
+    }
+    return null;
+  }
+
+  function selectCategory(catId){
+    document.querySelectorAll('.cat-tab').forEach(function(t, i){
+      t.classList.toggle('active', catalog[i].id === catId);
+    });
+    document.querySelectorAll('.cat-group').forEach(function(g){
+      g.classList.toggle('visible', g.id === 'group-' + catId);
+    });
+  }
+
+  function addToCart(id, qty){
+    var item = findItem(id);
+    if (!item) return;
+    if (!cart[id]) cart[id] = { name:item.name, price:item.price, qty:0 };
+    cart[id].qty += qty;
+    renderCart();
+    openCart();
+  }
+
+  function removeFromCart(id){
+    delete cart[id];
+    renderCart();
+  }
+
+  function renderCart(){
+    var itemsEl = document.getElementById('cartItems');
+    var ids = Object.keys(cart);
+    var count = 0, total = 0;
+
+    if (ids.length === 0){
+      itemsEl.innerHTML = '<p class="cart-empty">Aún no has agregado productos.</p>';
+    } else {
+      itemsEl.innerHTML = "";
+      ids.forEach(function(id){
+        var it = cart[id];
+        count += it.qty;
+        var sub = it.qty * it.price;
+        total += sub;
+        var row = document.createElement('div');
+        row.className = "cart-item";
+        row.innerHTML =
+          '<div>' +
+            '<div class="ci-name">' + it.name + '</div>' +
+            '<div class="ci-sub">' + it.qty + ' × ' + currency(it.price) + '</div>' +
+            '<button class="ci-remove" data-remove="' + id + '">Quitar</button>' +
+          '</div>' +
+          '<div class="ci-right">' + currency(sub) + '</div>';
+        itemsEl.appendChild(row);
+      });
+      itemsEl.querySelectorAll('button[data-remove]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          removeFromCart(btn.getAttribute('data-remove'));
+        });
+      });
+    }
+
+    document.getElementById('cartCount').textContent = count;
+    document.getElementById('cartTotal').textContent = currency(total);
+    document.getElementById('sendBtn').disabled = ids.length === 0;
+  }
+
+  function openCart(){
+    document.getElementById('cartDrawer').classList.add('open');
+    document.getElementById('overlay').classList.add('open');
+  }
+  function closeCart(){
+    document.getElementById('cartDrawer').classList.remove('open');
+    document.getElementById('overlay').classList.remove('open');
+  }
+
+  function sendOrder(){
+    var ids = Object.keys(cart);
+    if (ids.length === 0) return;
+    var lines = ["Hola, quiero hacer un pedido en Panadería Monarca Real:"];
+    var total = 0;
+    ids.forEach(function(id){
+      var it = cart[id];
+      var sub = it.qty * it.price;
+      total += sub;
+      lines.push("- " + it.name + " x" + it.qty + " (" + currency(sub) + ")");
+    });
+    lines.push("Total: " + currency(total));
+    lines.push("");
+    lines.push("Nombre: ");
+    lines.push("¿Entrega o recolección?: ");
+    var msg = encodeURIComponent(lines.join("\n"));
+    window.open("https://wa.me/" + WA_NUMBER + "?text=" + msg, "_blank");
+  }
+
+  // Floating general WhatsApp button
+  document.getElementById('waFloat').href =
+    "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent("Hola, me gustaría más información sobre Panadería Monarca Real.");
+
+  renderCatalog();
+  renderCart();
+</script>
+
+</body>
+</html>
