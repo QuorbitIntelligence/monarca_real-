@@ -242,7 +242,9 @@
     box-shadow:0 6px 16px rgba(0,0,0,.28);
     text-decoration:none;
     animation:pulse 2.4s infinite;
+    transition:bottom .25s ease;
   }
+  .wa-float.raised{bottom:96px;}
   .wa-float:hover{background:var(--verde-wa-dark);}
   .wa-float svg{width:30px;height:30px;}
   @keyframes pulse{
@@ -250,6 +252,71 @@
     70%{box-shadow:0 0 0 14px rgba(37,211,102,0);}
     100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
   }
+
+  /* ===== Sticky order bar (stays in catalog, strategic access to cart) ===== */
+  .order-bar{
+    position:fixed;left:0;right:0;bottom:0;z-index:70;
+    background:var(--cafe-900);color:var(--crema);
+    box-shadow:0 -6px 18px rgba(0,0,0,.22);
+    transform:translateY(100%);transition:transform .28s ease;
+    padding:12px 16px;
+  }
+  .order-bar.visible{transform:translateY(0);}
+  .order-bar-inner{
+    max-width:1100px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+  }
+  .order-bar-info{display:flex;align-items:center;gap:10px;min-width:0;}
+  .order-bar-count{
+    background:var(--dorado);color:var(--cafe-900);font-weight:700;
+    width:28px;height:28px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.85rem;
+  }
+  .order-bar-text{display:flex;flex-direction:column;min-width:0;line-height:1.25;}
+  .order-bar-text strong{font-size:.92rem;color:var(--crema);}
+  .order-bar-text span{font-size:.78rem;color:#cbb999;}
+  .order-bar-btn{
+    background:var(--dorado);color:var(--cafe-900);border:none;
+    font-weight:700;font-size:.9rem;padding:12px 20px;border-radius:999px;
+    cursor:pointer;white-space:nowrap;flex-shrink:0;
+    display:flex;align-items:center;gap:6px;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);
+    transition:transform .12s ease, background .15s ease;
+  }
+  .order-bar-btn:hover{background:var(--dorado-2);}
+  .order-bar-btn:active{transform:scale(.96);}
+  .order-bar-btn svg{width:16px;height:16px;}
+  @media (max-width:480px){
+    .order-bar-text span{display:none;}
+  }
+
+  /* ===== Add-to-cart toast feedback ===== */
+  .add-toast{
+    position:fixed;left:50%;bottom:22px;z-index:75;
+    transform:translate(-50%,12px);
+    background:var(--cafe-800);color:var(--crema);
+    padding:10px 18px;border-radius:999px;font-size:.85rem;font-weight:600;
+    box-shadow:0 6px 16px rgba(0,0,0,.28);
+    display:flex;align-items:center;gap:8px;
+    opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;
+    white-space:nowrap;
+  }
+  .add-toast.show{opacity:1;transform:translate(-50%,0);}
+  .add-toast svg{width:16px;height:16px;color:var(--dorado-2);flex-shrink:0;}
+  .add-toast.with-bar{bottom:96px;}
+  @media (max-width:480px){
+    .add-toast{max-width:90vw;overflow:hidden;text-overflow:ellipsis;}
+  }
+
+  /* small pulse on the header cart count whenever an item is added */
+  @keyframes bump{
+    0%{transform:scale(1);}
+    40%{transform:scale(1.35);}
+    100%{transform:scale(1);}
+  }
+  .cart-count.bump{animation:bump .32s ease;}
+
+  body.has-order-bar footer{padding-bottom:78px;transition:padding-bottom .28s ease;}
 
   /* ===== Cart drawer ===== */
   .overlay{
@@ -437,13 +504,34 @@
     </div>
   </div>
   <div class="container footer-bottom">
-    © <span id="year"></span> Panadería Monarca Real. Todos los derechos reservados. · Panadería_distribución_v1.4.0
+    © <span id="year"></span> Panadería Monarca Real. Todos los derechos reservados. · Panadería_distribución_v1.5.0
   </div>
 </footer>
 
 <a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" title="Escríbenos por WhatsApp">
   <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.5.73 4.83 2 6.78L4 29l7.4-1.94a11.9 11.9 0 004.62.94h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 8.4 22.65 3 16.02 3zm0 21.85a9.8 9.8 0 01-4.99-1.37l-.36-.21-4.39 1.15 1.17-4.28-.23-.44a9.83 9.83 0 01-1.5-5.68c0-5.43 4.42-9.85 9.85-9.85s9.85 4.42 9.85 9.85-4.41 9.83-9.85 9.83zm5.4-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.21 5.09 4.5.71.31 1.26.49 1.69.63.71.23 1.35.2 1.86.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/></svg>
 </a>
+
+<div class="add-toast" id="addToast">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+  <span id="addToastText">Agregado</span>
+</div>
+
+<div class="order-bar" id="orderBar">
+  <div class="order-bar-inner">
+    <div class="order-bar-info">
+      <div class="order-bar-count" id="orderBarCount">0</div>
+      <div class="order-bar-text">
+        <strong id="orderBarTotal">$0.00 MXN</strong>
+        <span>Sigue eligiendo o revisa tu pedido</span>
+      </div>
+    </div>
+    <button class="order-bar-btn" onclick="openCart()">
+      Ver pedido
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</div>
 
 <div class="overlay" id="overlay" onclick="closeCart()"></div>
 <aside class="cart-drawer" id="cartDrawer">
@@ -671,13 +759,32 @@
     });
   }
 
+  var toastTimer = null;
+  function showAddToast(item, qty){
+    var toastEl = document.getElementById('addToast');
+    var textEl = document.getElementById('addToastText');
+    textEl.textContent = 'Agregado: ' + item.name + (qty > 1 ? ' ×' + qty : '');
+    toastEl.classList.toggle('with-bar', Object.keys(cart).length > 0);
+    toastEl.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 1400);
+  }
+
+  function bumpCartCount(){
+    var el = document.getElementById('cartCount');
+    el.classList.remove('bump');
+    void el.offsetWidth; // restart animation
+    el.classList.add('bump');
+  }
+
   function addToCart(id, qty){
     var item = findItem(id);
     if (!item) return;
     if (!cart[id]) cart[id] = { name:item.name, price:item.price, qty:0 };
     cart[id].qty += qty;
     renderCart();
-    openCart();
+    showAddToast(item, qty);
+    bumpCartCount();
   }
 
   function removeFromCart(id){
@@ -720,6 +827,14 @@
     document.getElementById('cartCount').textContent = count;
     document.getElementById('cartTotal').textContent = currency(total);
     document.getElementById('sendBtn').disabled = ids.length === 0;
+
+    // sticky order bar: stays in the catalog, gives quick access to review + send
+    var hasItems = ids.length > 0;
+    document.getElementById('orderBar').classList.toggle('visible', hasItems);
+    document.getElementById('orderBarCount').textContent = count;
+    document.getElementById('orderBarTotal').textContent = currency(total);
+    document.getElementById('waFloat').classList.toggle('raised', hasItems);
+    document.body.classList.toggle('has-order-bar', hasItems);
   }
 
   function openCart(){
